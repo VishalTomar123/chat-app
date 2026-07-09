@@ -69,34 +69,25 @@ const io = new Server(server, {
   },
 });
 io.use((socket, next) => {
+  try {
+    console.log("========== SOCKET AUTH ==========");
+    console.log("Auth:", socket.handshake.auth);
 
-    console.log("Socket Auth:", socket.handshake.auth);
+    const token = socket.handshake.auth.token;
+    console.log("Token:", token);
 
-    try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-        const token = socket.handshake.auth.token;
+    console.log("Decoded:", decoded);
 
-        console.log("Token:", token);
+    socket.user = decoded;
 
-        const decoded = jwt.verify(
-            token,
-            process.env.JWT_SECRET
-        );
+    next();
 
-        console.log("Decoded:", decoded);
-
-        socket.user = decoded;
-
-        next();
-
-    } catch (err) {
-
-        console.log("Socket JWT Error:", err.message);
-
-        next(new Error("Unauthorized"));
-
-    }
-
+  } catch (err) {
+    console.log("Socket Auth Error:", err);
+    next(err); // <-- next(new Error("Unauthorized")) mat likho
+  }
 });
 // io.use((socket, next) => {
 
