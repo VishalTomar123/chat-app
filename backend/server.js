@@ -68,33 +68,62 @@ const io = new Server(server, {
     methods: ["GET", "POST"],
   },
 });
-
 io.use((socket, next) => {
 
-  try {
+    console.log("Socket Auth:", socket.handshake.auth);
 
-      const token = socket.handshake.auth.token;
+    try {
 
-      if (!token) {
-          return socket.emit("unauthorized");;
-      }
+        const token = socket.handshake.auth.token;
 
-      const decoded = jwt.verify(
-          token,
-          process.env.JWT_SECRET
-      );
+        console.log("Token:", token);
 
-      socket.user = decoded;
+        const decoded = jwt.verify(
+            token,
+            process.env.JWT_SECRET
+        );
 
-      next();
+        console.log("Decoded:", decoded);
 
-  } catch (err) {
+        socket.user = decoded;
 
-      socket.emit("unauthorized");;
+        next();
 
-  }
+    } catch (err) {
+
+        console.log("Socket JWT Error:", err.message);
+
+        next(new Error("Unauthorized"));
+
+    }
 
 });
+// io.use((socket, next) => {
+
+//   try {
+
+//       const token = socket.handshake.auth.token;
+
+//       if (!token) {
+//           return socket.emit("unauthorized");;
+//       }
+
+//       const decoded = jwt.verify(
+//           token,
+//           process.env.JWT_SECRET
+//       );
+
+//       socket.user = decoded;
+
+//       next();
+
+//   } catch (err) {
+
+//       socket.emit("unauthorized");;
+
+//   }
+
+// });
 const onlineUsers = {};
 
 global.io = io;
