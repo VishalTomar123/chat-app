@@ -1,0 +1,105 @@
+.delete-overlay{
+
+    position:fixed;
+    
+    top:0;
+    
+    left:0;
+    
+    height:100%;
+    
+    width:100%;
+    
+    background:rgba(0,0,0,.55);
+    
+    display:flex;
+    
+    justify-content:center;
+    
+    align-items:center;
+    
+    z-index:9999;
+    
+    }
+    
+    .delete-modal{
+    
+    width:340px;
+    
+    background:#fff;
+    
+    border-radius:15px;
+    
+    padding:25px;
+    
+    display:flex;
+    
+    flex-direction:column;
+    
+    gap:15px;
+    
+    animation:pop .25s;
+    
+    }
+    
+    .delete-modal h3{
+    
+    margin:0;
+    
+    }
+    
+    .delete-modal button{
+    
+    padding:12px;
+    
+    border:none;
+    
+    border-radius:8px;
+    
+    cursor:pointer;
+    
+    font-size:15px;
+    
+    }
+    
+    .delete-me{
+    
+    background:#3498db;
+    
+    color:white;
+    
+    }
+    
+    .delete-all{
+    
+    background:#e74c3c;
+    
+    color:white;
+    
+    }
+    
+    .cancel-btn{
+    
+    background:#ddd;
+    
+    }
+    
+    @keyframes pop{
+    
+    from{
+    
+    transform:scale(.8);
+    
+    opacity:0;
+    
+    }
+    
+    to{
+    
+    transform:scale(1);
+    
+    opacity:1;
+    
+    }
+    
+    }
