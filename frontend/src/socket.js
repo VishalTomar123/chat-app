@@ -6,5 +6,16 @@ const socket = io(import.meta.env.VITE_SOCKET_URL,{
         token:localStorage.getItem("token")
     }
 });
+socket.on("connect", () => {
+    console.log("✅ Socket Connected:", socket.id);
+});
+
+socket.on("connect_error", (err) => {
+    console.log("❌ Socket Error:", err.message);
+});
+
+socket.on("disconnect", () => {
+    console.log("❌ Socket Disconnected");
+});
 
 export default socket;
