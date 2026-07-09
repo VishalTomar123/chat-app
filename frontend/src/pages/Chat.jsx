@@ -1559,11 +1559,11 @@ msg.file ? (
     msg.file_type?.startsWith("image") ? (
 
         <img
-            src={`http://localhost:5000${msg.file}`}
+            src={`${import.meta.env.VITE_SERVER_URL}${msg.file}`}
             className="chat-image"
             onClick={() =>
                 setViewerImage(
-                    `http://localhost:5000${msg.file}`
+                    `${import.meta.env.VITE_SERVER_URL}${msg.file}`
                 )
             }
         />
@@ -1571,7 +1571,7 @@ msg.file ? (
     ) : (
 
         <a
-            href={`http://localhost:5000${msg.file}`}
+            href={`${import.meta.env.VITE_SERVER_URL}${msg.file}`}
             target="_blank"
             rel="noreferrer"
         >
